@@ -1,0 +1,176 @@
+import java.util.*;
+import java.util.Scanner;
+
+class Employee {
+
+  int id;
+  String name;
+  String hire;
+  Double salary;
+  
+  public Employee() {
+
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+  
+  public String getname() {
+    return name;
+  }
+
+  public void setname(String name) {
+    this.name = name;
+  }
+  public String gethire() {
+    return hire;
+  }
+
+  public void sethire(String hire) {
+    this.hire = hire;
+  }
+  public Double getsalary() {
+    return salary;
+  }
+
+  public void setsalary(Double salary) {
+    this.salary = salary;
+  }
+  @Override
+    public String toString() {
+    return " [ Name: " + name + ", Hire Day: " + hire + ", Salary: "+salary+ " ]";
+    }
+}
+
+class Manager extends Employee {
+
+  String Secretary;
+
+  public Manager() {
+    super();
+  }
+
+  public String getSecretary() {
+    return Secretary;
+  }
+
+  public void setSecretary(String Secretary) {
+    this.Secretary = Secretary;
+  }
+  @Override
+    public String toString() {
+    return "M [ Name: " + name + ", Hire Day: " + hire + ", Salary: "+salary+ " ]";
+    }
+}
+
+class Company extends Employee 
+{
+    private Employee[] employees;
+ 
+    public Employee[] getemployees() {
+        return employees;
+    }
+ 
+    public void setSubordinates(Employee[] employees) {
+        this.employees = employees;
+    }
+ 
+    @Override
+    public String toString() {
+        return "Employees [subordinates=" + employees + ", details=" + super.toString() + "]";
+    }
+}
+
+public class Main {
+
+  public static void main(String[] args) {
+      int invalid_counter =0;
+      Scanner input = new Scanner(System.in);
+      int ch = 0;
+      int Arrlength =1;
+      Company com = new Company();
+      
+      while (invalid_counter < 5)
+      {
+        System.out.println("1.Add employee");
+        System.out.println("2.Delete employee");
+        System.out.println("3.Raise salary");
+        System.out.println("4.List all");
+        System.out.println("5.Exit");
+        System.out.println("----------------------");
+        System.out.println("Enter your choice:");
+		ch = Integer.parseInt(input.nextLine());
+		if(ch == 1){
+		    Employee newarr[] = new Employee[Arrlength + 1]; 
+            for (int i = 0; i < n; i++)
+                ////newrr is array
+                newarr[i] = arr[i]; 
+  
+		    System.out.println("Enter employee Name");
+		    String name = input.nextLine();
+		    System.out.println("Enter employee Hire day");
+		    String Hire_day = input.nextLine();
+		    System.out.println("Enter employee Salary");
+		    Double Sal = Double.parseDouble(input.nextLine());
+		    System.out.println("IF the Employee is Manager??");
+		    String st = input.nextLine();
+		    
+		    if (st =="n"){
+		        Employee m = new Employee();
+		        m.setname(name);
+                m.sethire(Hire_day);
+                m.setsalary(Sal);
+		        newarr[Arrlength] = m; 
+            }
+            else if(st == "y"){
+                System.out.println("Secretary Name");
+                String sec = input.nextLine();
+                
+                Manager m = new Manager();
+		        m.setname(name);
+                m.sethire(Hire_day);
+                m.setsalary(Sal);
+                m.setSecretary(sec);
+                newarr[Arrlength] = m; 
+            }
+            System.out.println("Employee added");
+		}
+		else if(ch == 2){
+		    System.out.println("2.Delete employee");
+		}
+    	else if(ch == 3){
+		    System.out.println("3.Raise salary");
+		}
+		else if(ch == 4){
+		    System.out.println("4.List all");
+		}
+		else if(ch == 5){
+		    System.exit(0);
+		}
+		else {
+		    invalid_counter++;
+		    if(invalid_counter == 5){
+		        System.exit(0);
+		    }
+		}
+      }
+      
+      
+      
+      
+    Manager m = new Manager();
+    m.setId(1);
+    m.setname("sss");
+    m.sethire("swet");
+    m.setsalary(55.00);
+    m.setSecretary("ahmed");
+    String out = m.toString();
+    System.out.println(out);
+  }
+
+}
