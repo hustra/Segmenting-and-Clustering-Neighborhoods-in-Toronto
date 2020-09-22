@@ -159,18 +159,6 @@ public class Main {
 		    }
 		}
       }
-      
-      
-      
-      
-    Manager m = new Manager();
-    m.setId(1);
-    m.setname("sss");
-    m.sethire("swet");
-    m.setsalary(55.00);
-    m.setSecretary("ahmed");
-    String out = m.toString();
-    System.out.println(out);
   }
 
 }
