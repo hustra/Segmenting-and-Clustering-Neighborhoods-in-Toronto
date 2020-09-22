@@ -3,21 +3,21 @@ import java.util.Scanner;
 
 class Employee {
 
-  int id;
   String name;
   String hire;
   Double salary;
+  boolean Ismanager;
   
   public Employee() {
 
   }
 
-  public int getId() {
-    return id;
+  public boolean getIsmanager() {
+    return Ismanager;
   }
 
-  public void setId(int id) {
-    this.id = id;
+  public void setId(boolean Ismanager) {
+    this.Ismanager = Ismanager;
   }
   
   public String getname() {
@@ -68,8 +68,7 @@ class Manager extends Employee {
     }
 }
 
-class Company extends Employee 
-{
+class Company extends Employee {
     private Employee[] employees;
  
     public Employee[] getemployees() {
@@ -94,6 +93,7 @@ public class Main {
       int ch = 0;
       int Arrlength =1;
       Company com = new Company();
+      Employee arr[] = new Employee[Arrlength];
       
       while (invalid_counter < 5)
       {
@@ -132,7 +132,7 @@ public class Main {
                 String sec = input.nextLine();
                 
                 Manager m = new Manager();
-		        m.setname(name);
+		        m.setname("M - "+name);
                 m.sethire(Hire_day);
                 m.setsalary(Sal);
                 m.setSecretary(sec);
@@ -141,14 +141,64 @@ public class Main {
             System.out.println("Employee added");
 		}
 		else if(ch == 2){
-		    System.out.println("2.Delete employee");
+		    System.out.println("Enter employee Name");
+		    String name = input.nextLine();
+		    int currnet_index = -1;
+		    for (int i = 0; i < Arrlength; i++){
+		        //////
+		        if(arr[i].name == name){
+		            currnet_index = i;
+		            break;
+		        }
+		    }
+		    if(currnet_index == 0){
+		        System.out.println("Invalid Employee Name.");
+		    }
+		    else {
+		        int k=0;
+		        Employee newarr[] = new Employee[Arrlength - 1]; 
+		        for (int i = 0; i < Arrlength; i++){
+		            if(i == currnet_index){
+		                continue;
+		            }
+		            newarr[i] = arr[k];
+		            k++;
+		        }
+		        System.out.println("Employee Deleted.");
+		    }
 		}
     	else if(ch == 3){
-		    System.out.println("3.Raise salary");
+		    System.out.println("Enter employee Name");
+		    String name = input.nextLine();
+		    int counter = 0;
+		    for (int i = 0; i < Arrlength; i++){
+		        //////
+		        if(arr[i].name == name){
+		            System.out.println("Enter Raise percentage from 0 to 100");
+		            Double raise = Double.parseDouble(input.nextLine());
+		            if(arr[i].Ismanager == "M"){
+		                Double salaryAfterRaise = 1 + (Raise /100);
+				        Double tot = arr[i].salary * salaryAfterRaise;
+				        arr[i].salary = tot * 1.02;
+		            }
+		            else {
+		                Double salaryAfterRaise = 1 + (Raise /100);
+				        Double tot = arr[i].salary * salaryAfterRaise;
+				        arr[i].salary = tot;
+		            }
+		            counter += 1;
+		            break;
+		        }
+		    }
+		    if(counter == 0){
+		        System.out.println("Invalid Employee Name.");
+		    }
+		    else {
+		        System.out.println("Raise has Applied to Employee Salary.");
+		    }
 		}
 		else if(ch == 4){
-		    System.out.println("4.List all");
-		    
+		    System.out.println(Arrays.toString(arr));
 		}
 		else if(ch == 5){
 		    System.exit(0);
