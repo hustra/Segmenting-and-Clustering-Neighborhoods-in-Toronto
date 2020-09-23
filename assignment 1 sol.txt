@@ -9,7 +9,6 @@ class Employee {
   boolean Ismanager;
   
   public Employee() {
-
   }
 
   public boolean getIsmanager() {
@@ -77,34 +76,16 @@ public class Main {
 
         Manager newarr[] = new Manager[n + 1]; 
         if(n == 0){
-            newarr[0].setname(x.getname()); 
-            newarr[0].sethire(x.gethire()); 
-            newarr[0].setsalary(x.getsalary()); 
-            newarr[0].setIsmanager(x.getIsmanager()); 
-            newarr[0].setSecretary(x.getSecretary());
+            System.out.println(x.name);
+            newarr[0] = x;
         }
         else {
             int i;
             for (i = 0; i < n; i++) {
-                newarr[i].setname(arr[i].getname());
-                newarr[i].sethire(arr[i].gethire()); 
-                newarr[i].setsalary(arr[i].getsalary()); 
-                newarr[i].setIsmanager(arr[i].getIsmanager());
-                if(arr[i].getIsmanager() ==  true){ 
-                    newarr[i].setSecretary(arr[i].getSecretary());
-                }
+                newarr[i] = arr[i];
             }
-            newarr[n].setname(x.getname()); 
-            newarr[n].sethire(x.gethire()); 
-            newarr[n].setsalary(x.getsalary()); 
-            newarr[n].setIsmanager(x.getIsmanager()); 
-            newarr[n].setSecretary(x.getSecretary());
+            newarr[n] = x;
         }
-        
-        
-        
-        
-        
         return newarr; 
     } 
 
@@ -135,42 +116,26 @@ public class Main {
 		    System.out.println("IF the Employee is Manager??");
 		    String st = input.nextLine();
 		    Manager m = new Manager();
-		    if(Arrlength == 0){
-                if(st == "y"){
-                    System.out.println("Secretary Name");
-                    String sec = input.nextLine();
-		            m.setname("M - "+name);
-                    m.sethire(Hire_day);
-                    m.setsalary(Sal);
-                    m.Ismanager = true;
-                    m.setSecretary(sec);
-                }
-                else{
-		            m.setname(name);
-                    m.sethire(Hire_day);
-                    m.setsalary(Sal);
+		    m.name = name;
+		    m.sethire(Hire_day);
+		    m.setsalary(Sal);
+		    if(st.equals("y") ||st.equals("Y") ){
+                System.out.println("Secretary Name");
+                String sec = input.nextLine();
+                m.Ismanager = true;
+                m.setSecretary(sec);
+            }
+            else{
                     m.Ismanager = false;
-                }
+            }
+		    if(Arrlength == 0){
+		        
                 arr= addEmployee(0,arr,m);
 		    }
 		    else {
-                if(st == "y"){
-                    System.out.println("Secretary Name");
-                    String sec = input.nextLine();
-		            m.setname("M - "+name);
-                    m.sethire(Hire_day);
-                    m.setsalary(Sal);
-                    m.Ismanager = true;
-                    m.setSecretary(sec);
-                }
-                else {
-		            m.setname(name);
-                    m.sethire(Hire_day);
-                    m.setsalary(Sal);
-                    m.Ismanager = false;
-                }
                 arr= addEmployee(Arrlength,arr,m);
 		    }
+		    
             Arrlength++;
             System.out.println("Employee added");
             System.out.println("");
@@ -184,27 +149,33 @@ public class Main {
 		        String name = input.nextLine();
 		        int currnet_index = -1;
 		        for (int i = 0; i < Arrlength; i++){
-		        //////
-		            if(arr[i].name == name){
+		            if(arr[i].name.equals(name)){
+		                System.out.println(Arrlength);
 		                currnet_index = i;
 		                break;
 		            }
 		        }
-		        if(currnet_index == 0){
+		        
+		        if(currnet_index == -1){
 		            System.out.println("Invalid Employee Name.");
+		            
 		        }
 		        else {
-		            int k=0;
-		            Manager newarr[] = new Manager[Arrlength - 1]; 
-		            for (int i = 0; i < Arrlength; i++){
-		                if(i == currnet_index){
-		                    continue;
-		                }
-		                newarr[i] = arr[k];
-		                k++;
-		            }
-		            System.out.println("Employee Deleted.");
+		              int k=0;
+		              Manager newarr[] = new Manager[Arrlength - 1]; 
+		              for (int i = 0; i < Arrlength; i++){
+		                  if(i == currnet_index){
+		                        continue;
+		                  }
+		                  newarr[k] = arr[i];
+		                  k++;
+		              }
+		              arr = newarr;
+		              System.out.println("Employee Deleted.");
+		              currnet_index = -1;
+		              Arrlength--;
 		        } 
+		        
 		    }
 		    System.out.println("");
 		}
@@ -218,7 +189,7 @@ public class Main {
 		        int counter = 0;
 		        for (int i = 0; i < Arrlength; i++){
 		        //////
-		            if(arr[i].name == name){
+		            if(arr[i].name.equals(name)){
 		                System.out.println("Enter Raise percentage from 0 to 100");
 		                Double raise = Double.parseDouble(input.nextLine());
 		                if(arr[i].Ismanager ==  true){
@@ -254,16 +225,13 @@ public class Main {
 		        
 		        for (int i = 0; i < Arrlength; i++){
 		            if(arr[i].Ismanager ==  false){
-		                
-		                System.out.println("1");
 		                out = "Employee Name: "+arr[i].name+", Hire Day: "+ arr[i].hire+", Salary: "+arr[i].salary;
-		                System.out.println(out);
 		            }
 		            else {
 		                System.out.println("2");
 		                out = "M -- Employee Name: "+arr[i].name+", Hire Day: "+ arr[i].hire+", Salary: "+arr[i].salary+", Secretary: "+arr[i].Secretary;
-		                System.out.println(out);
 		            }
+		            System.out.println(out);
 		        }
 		        System.out.println("");
 		    }
@@ -281,3 +249,5 @@ public class Main {
   }
 
 }
+
+
