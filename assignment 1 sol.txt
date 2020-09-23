@@ -16,7 +16,7 @@ class Employee {
     return Ismanager;
   }
 
-  public void setId(boolean Ismanager) {
+  public void setIsmanager(boolean Ismanager) {
     this.Ismanager = Ismanager;
   }
   
@@ -45,6 +45,7 @@ class Employee {
     public String toString() {
     return " [ Name: " + name + ", Hire Day: " + hire + ", Salary: "+salary+ " ]";
     }
+    
 }
 
 class Manager extends Employee {
@@ -68,8 +69,29 @@ class Manager extends Employee {
     }
 }
 
-
 public class Main {
+
+    public static Manager[] addEmployee(int n, Manager arr[], Manager x) 
+    { 
+        
+        int i;
+        Manager newarr[] = new Manager[n + 1]; 
+        for (i = 0; i < n; i++) {
+            newarr[i].setname(arr[i].getname());
+            newarr[i].sethire(arr[i].gethire()); 
+            newarr[i].setsalary(arr[i].getsalary()); 
+            newarr[i].setIsmanager(arr[i].getIsmanager());
+            if(arr[i].getIsmanager() ==  true)
+                newarr[i].setSecretary(arr[i].getSecretary());
+
+        }
+        newarr[n].setname(x.getname()); 
+        newarr[n].sethire(x.gethire()); 
+        newarr[n].setsalary(x.getsalary()); 
+        newarr[n].setIsmanager(x.getIsmanager()); 
+        newarr[n].setSecretary(x.getSecretary()); 
+        return newarr; 
+    } 
 
   public static void main(String[] args) {
       int invalid_counter =0;
@@ -98,27 +120,25 @@ public class Main {
 		    Double Sal = Double.parseDouble(input.nextLine());
 		    System.out.println("IF the Employee is Manager??");
 		    String st = input.nextLine();
+		    Manager m = new Manager();
 		    if(Arrlength == 0){
-		        if (st =="n"){
-		            Manager m = new Manager();
-		            m.setname(name);
-                    m.sethire(Hire_day);
-                    m.setsalary(Sal);
-                    m.Ismanager = false;
-		            newarr[0] = m;
-		            
-                }
-                else if(st == "y"){
+                if(st == "y"){
                     System.out.println("Secretary Name");
                     String sec = input.nextLine();
-                    Manager m = new Manager();
 		            m.setname("M - "+name);
                     m.sethire(Hire_day);
                     m.setsalary(Sal);
                     m.Ismanager = true;
                     m.setSecretary(sec);
-                    newarr[0] = m; 
                 }
+                else{
+		            m.setname(name);
+                    m.sethire(Hire_day);
+                    m.setsalary(Sal);
+                    m.Ismanager = false;
+		            
+                }
+                arr= addEmployee(1,arr,m);
 		    }
 		    else {
 		        newarr = new Manager[Arrlength + 1];
@@ -126,18 +146,9 @@ public class Main {
 		            ////newrr is array
                     newarr[i] = arr[i];
 		        }
-		            if (st =="n"){
-		            Manager m = new Manager();
-		            m.setname(name);
-                    m.sethire(Hire_day);
-                    m.setsalary(Sal);
-                    m.Ismanager = false;
-		            newarr[Arrlength] = m; 
-                }
-                else if(st == "y"){
+                if(st == "y"){
                     System.out.println("Secretary Name");
                     String sec = input.nextLine();
-                    Manager m = new Manager();
 		            m.setname("M - "+name);
                     m.sethire(Hire_day);
                     m.setsalary(Sal);
@@ -145,12 +156,19 @@ public class Main {
                     m.setSecretary(sec);
                     newarr[Arrlength] = m; 
                 }
+                else {
+		            m.setname(name);
+                    m.sethire(Hire_day);
+                    m.setsalary(Sal);
+                    m.Ismanager = false;
+		            newarr[Arrlength] = m; 
+                }
+                arr= addEmployee(Arrlength,arr,m);
 		    }
             if(Arrlength == 0){
                 for (int i = 0; i < Arrlength; i++){
 		            ////newrr is array
                     arr[i] = newarr[i];
-
                 }
             }
             else {
