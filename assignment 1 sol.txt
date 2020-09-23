@@ -68,22 +68,6 @@ class Manager extends Employee {
     }
 }
 
-class Company extends Employee {
-    private Employee[] employees;
- 
-    public Employee[] getemployees() {
-        return employees;
-    }
- 
-    public void setSubordinates(Employee[] employees) {
-        this.employees = employees;
-    }
- 
-    @Override
-    public String toString() {
-        return "Employees [subordinates=" + employees + ", details=" + super.toString() + "]";
-    }
-}
 
 public class Main {
 
@@ -91,9 +75,8 @@ public class Main {
       int invalid_counter =0;
       Scanner input = new Scanner(System.in);
       int ch = 0;
-      int Arrlength =1;
-      Company com = new Company();
-      Employee arr[] = new Employee[Arrlength];
+      int Arrlength =0;
+      Manager arr[] = new Manager[1];
       
       while (invalid_counter < 5)
       {
@@ -106,11 +89,7 @@ public class Main {
         System.out.println("Enter your choice:");
 		ch = Integer.parseInt(input.nextLine());
 		if(ch == 1){
-		    Employee newarr[] = new Employee[Arrlength + 1]; 
-            for (int i = 0; i < Arrlength; i++)
-                ////newrr is array
-                newarr[i] = arr[i]; 
-  
+		    Manager newarr[] = new Manager[1] ;
 		    System.out.println("Enter employee Name");
 		    String name = input.nextLine();
 		    System.out.println("Enter employee Hire day");
@@ -119,86 +98,164 @@ public class Main {
 		    Double Sal = Double.parseDouble(input.nextLine());
 		    System.out.println("IF the Employee is Manager??");
 		    String st = input.nextLine();
-		    
-		    if (st =="n"){
-		        Employee m = new Employee();
-		        m.setname(name);
-                m.sethire(Hire_day);
-                m.setsalary(Sal);
-		        newarr[Arrlength] = m; 
+		    if(Arrlength == 0){
+		        if (st =="n"){
+		            Manager m = new Manager();
+		            m.setname(name);
+                    m.sethire(Hire_day);
+                    m.setsalary(Sal);
+                    m.Ismanager = false;
+		            newarr[0] = m;
+		            
+                }
+                else if(st == "y"){
+                    System.out.println("Secretary Name");
+                    String sec = input.nextLine();
+                    Manager m = new Manager();
+		            m.setname("M - "+name);
+                    m.sethire(Hire_day);
+                    m.setsalary(Sal);
+                    m.Ismanager = true;
+                    m.setSecretary(sec);
+                    newarr[0] = m; 
+                }
+		    }
+		    else {
+		        newarr = new Manager[Arrlength + 1];
+		        for (int i = 0; i < Arrlength; i++){
+		            ////newrr is array
+                    newarr[i] = arr[i];
+		        }
+		            if (st =="n"){
+		            Manager m = new Manager();
+		            m.setname(name);
+                    m.sethire(Hire_day);
+                    m.setsalary(Sal);
+                    m.Ismanager = false;
+		            newarr[Arrlength] = m; 
+                }
+                else if(st == "y"){
+                    System.out.println("Secretary Name");
+                    String sec = input.nextLine();
+                    Manager m = new Manager();
+		            m.setname("M - "+name);
+                    m.sethire(Hire_day);
+                    m.setsalary(Sal);
+                    m.Ismanager = true;
+                    m.setSecretary(sec);
+                    newarr[Arrlength] = m; 
+                }
+		    }
+            if(Arrlength == 0){
+                for (int i = 0; i < Arrlength; i++){
+		            ////newrr is array
+                    arr[i] = newarr[i];
+
+                }
             }
-            else if(st == "y"){
-                System.out.println("Secretary Name");
-                String sec = input.nextLine();
-                
-                Manager m = new Manager();
-		        m.setname("M - "+name);
-                m.sethire(Hire_day);
-                m.setsalary(Sal);
-                m.setSecretary(sec);
-                newarr[Arrlength] = m; 
+            else {
+                arr = new Manager [Arrlength+1];
+                for (int i = 0; i < Arrlength+1; i++){
+		            ////newrr is array
+                     arr[i] = newarr[i];
+                }
             }
+            Arrlength++;
             System.out.println("Employee added");
+            System.out.println("");
 		}
 		else if(ch == 2){
-		    System.out.println("Enter employee Name");
-		    String name = input.nextLine();
-		    int currnet_index = -1;
-		    for (int i = 0; i < Arrlength; i++){
-		        //////
-		        if(arr[i].name == name){
-		            currnet_index = i;
-		            break;
-		        }
+		    if(Arrlength == 0){
+		        System.out.println("The list Empty");
 		    }
-		    if(currnet_index == 0){
-		        System.out.println("Invalid Employee Name.");
-		    }
-		    else {
-		        int k=0;
-		        Employee newarr[] = new Employee[Arrlength - 1]; 
+		    else{
+		        System.out.println("Enter employee Name");
+		        String name = input.nextLine();
+		        int currnet_index = -1;
 		        for (int i = 0; i < Arrlength; i++){
-		            if(i == currnet_index){
-		                continue;
+		        //////
+		            if(arr[i].name == name){
+		                currnet_index = i;
+		                break;
 		            }
-		            newarr[i] = arr[k];
-		            k++;
 		        }
-		        System.out.println("Employee Deleted.");
+		        if(currnet_index == 0){
+		            System.out.println("Invalid Employee Name.");
+		        }
+		        else {
+		            int k=0;
+		            Manager newarr[] = new Manager[Arrlength - 1]; 
+		            for (int i = 0; i < Arrlength; i++){
+		                if(i == currnet_index){
+		                    continue;
+		                }
+		                newarr[i] = arr[k];
+		                k++;
+		            }
+		            System.out.println("Employee Deleted.");
+		        } 
 		    }
+		    System.out.println("");
 		}
     	else if(ch == 3){
-		    System.out.println("Enter employee Name");
-		    String name = input.nextLine();
-		    int counter = 0;
-		    for (int i = 0; i < Arrlength; i++){
-		        //////
-		        if(arr[i].name == name){
-		            System.out.println("Enter Raise percentage from 0 to 100");
-		            Double raise = Double.parseDouble(input.nextLine());
-		            if(arr[i].Ismanager == "M"){
-		                Double salaryAfterRaise = 1 + (Raise /100);
-				        Double tot = arr[i].salary * salaryAfterRaise;
-				        arr[i].salary = tot * 1.02;
-		            }
-		            else {
-		                Double salaryAfterRaise = 1 + (Raise /100);
-				        Double tot = arr[i].salary * salaryAfterRaise;
-				        arr[i].salary = tot;
-		            }
-		            counter += 1;
-		            break;
-		        }
-		    }
-		    if(counter == 0){
-		        System.out.println("Invalid Employee Name.");
+    	    if(Arrlength == 0){
+		        System.out.println("The list Empty");
 		    }
 		    else {
-		        System.out.println("Raise has Applied to Employee Salary.");
-		    }
+		        System.out.println("Enter employee Name");
+		        String name = input.nextLine();
+		        int counter = 0;
+		        for (int i = 0; i < Arrlength; i++){
+		        //////
+		            if(arr[i].name == name){
+		                System.out.println("Enter Raise percentage from 0 to 100");
+		                Double raise = Double.parseDouble(input.nextLine());
+		                if(arr[i].Ismanager ==  true){
+		                    Double salaryAfterRaise = 1 + (raise /100);
+				            Double tot = arr[i].salary * salaryAfterRaise;
+				            arr[i].salary = tot * 1.02;
+		                }
+		                else {
+		                    Double salaryAfterRaise = 1 + (raise /100);
+				            Double tot = arr[i].salary * salaryAfterRaise;
+				            arr[i].salary = tot;
+		                }
+		                counter += 1;
+		                break;
+		            }
+		        }
+		        if(counter == 0){
+		            System.out.println("Invalid Employee Name.");
+		        }
+		        else {
+		            System.out.println("Raise has Applied to Employee Salary.");
+		        }
+		        System.out.println("");
+		  }
+		    
 		}
 		else if(ch == 4){
-		    System.out.println(Arrays.toString(arr));
+		    if(Arrlength == 0){
+		        System.out.println("The list Empty");
+		    }
+		    else {
+		        String out= "sss";
+		        
+		        for (int i = 0; i < Arrlength; i++){
+		            if(arr[i].Ismanager ==  false){
+		                
+		                System.out.println("1");
+		                out = "Employee Name: "+arr[i].name+", Hire Day: "+ arr[i].hire+", Salary: "+arr[i].salary;
+		                System.out.println(out);
+		            }
+		            else {
+		                System.out.println("2");
+		                out = "M -- Employee Name: "+arr[i].name+", Hire Day: "+ arr[i].hire+", Salary: "+arr[i].salary+", Secretary: "+arr[i].Secretary;
+		                System.out.println(out);
+		            }
+		        }
+		        System.out.println("");
+		    }
 		}
 		else if(ch == 5){
 		    System.exit(0);
