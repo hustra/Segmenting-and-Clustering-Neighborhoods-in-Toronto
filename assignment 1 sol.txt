@@ -74,22 +74,37 @@ public class Main {
     public static Manager[] addEmployee(int n, Manager arr[], Manager x) 
     { 
         
-        int i;
-        Manager newarr[] = new Manager[n + 1]; 
-        for (i = 0; i < n; i++) {
-            newarr[i].setname(arr[i].getname());
-            newarr[i].sethire(arr[i].gethire()); 
-            newarr[i].setsalary(arr[i].getsalary()); 
-            newarr[i].setIsmanager(arr[i].getIsmanager());
-            if(arr[i].getIsmanager() ==  true)
-                newarr[i].setSecretary(arr[i].getSecretary());
 
+        Manager newarr[] = new Manager[n + 1]; 
+        if(n == 0){
+            newarr[0].setname(x.getname()); 
+            newarr[0].sethire(x.gethire()); 
+            newarr[0].setsalary(x.getsalary()); 
+            newarr[0].setIsmanager(x.getIsmanager()); 
+            newarr[0].setSecretary(x.getSecretary());
         }
-        newarr[n].setname(x.getname()); 
-        newarr[n].sethire(x.gethire()); 
-        newarr[n].setsalary(x.getsalary()); 
-        newarr[n].setIsmanager(x.getIsmanager()); 
-        newarr[n].setSecretary(x.getSecretary()); 
+        else {
+            int i;
+            for (i = 0; i < n; i++) {
+                newarr[i].setname(arr[i].getname());
+                newarr[i].sethire(arr[i].gethire()); 
+                newarr[i].setsalary(arr[i].getsalary()); 
+                newarr[i].setIsmanager(arr[i].getIsmanager());
+                if(arr[i].getIsmanager() ==  true){ 
+                    newarr[i].setSecretary(arr[i].getSecretary());
+                }
+            }
+            newarr[n].setname(x.getname()); 
+            newarr[n].sethire(x.gethire()); 
+            newarr[n].setsalary(x.getsalary()); 
+            newarr[n].setIsmanager(x.getIsmanager()); 
+            newarr[n].setSecretary(x.getSecretary());
+        }
+        
+        
+        
+        
+        
         return newarr; 
     } 
 
@@ -98,7 +113,7 @@ public class Main {
       Scanner input = new Scanner(System.in);
       int ch = 0;
       int Arrlength =0;
-      Manager arr[] = new Manager[1];
+      Manager arr[] = null;
       
       while (invalid_counter < 5)
       {
@@ -111,7 +126,6 @@ public class Main {
         System.out.println("Enter your choice:");
 		ch = Integer.parseInt(input.nextLine());
 		if(ch == 1){
-		    Manager newarr[] = new Manager[1] ;
 		    System.out.println("Enter employee Name");
 		    String name = input.nextLine();
 		    System.out.println("Enter employee Hire day");
@@ -136,16 +150,10 @@ public class Main {
                     m.sethire(Hire_day);
                     m.setsalary(Sal);
                     m.Ismanager = false;
-		            
                 }
-                arr= addEmployee(1,arr,m);
+                arr= addEmployee(0,arr,m);
 		    }
 		    else {
-		        newarr = new Manager[Arrlength + 1];
-		        for (int i = 0; i < Arrlength; i++){
-		            ////newrr is array
-                    newarr[i] = arr[i];
-		        }
                 if(st == "y"){
                     System.out.println("Secretary Name");
                     String sec = input.nextLine();
@@ -154,30 +162,15 @@ public class Main {
                     m.setsalary(Sal);
                     m.Ismanager = true;
                     m.setSecretary(sec);
-                    newarr[Arrlength] = m; 
                 }
                 else {
 		            m.setname(name);
                     m.sethire(Hire_day);
                     m.setsalary(Sal);
                     m.Ismanager = false;
-		            newarr[Arrlength] = m; 
                 }
                 arr= addEmployee(Arrlength,arr,m);
 		    }
-            if(Arrlength == 0){
-                for (int i = 0; i < Arrlength; i++){
-		            ////newrr is array
-                    arr[i] = newarr[i];
-                }
-            }
-            else {
-                arr = new Manager [Arrlength+1];
-                for (int i = 0; i < Arrlength+1; i++){
-		            ////newrr is array
-                     arr[i] = newarr[i];
-                }
-            }
             Arrlength++;
             System.out.println("Employee added");
             System.out.println("");
@@ -288,4 +281,3 @@ public class Main {
   }
 
 }
-///////https://www.jdoodle.com/online-java-compiler/
